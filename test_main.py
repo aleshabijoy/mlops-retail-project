@@ -1,7 +1,7 @@
 # test_main.py
 
 from fastapi.testclient import TestClient
-from fastapi_app.main import app # Import the 'app' object from your main.py file
+from main import app # Import the 'app' object from your main.py file
 
 # Create a client to interact with your app
 client = TestClient(app)
@@ -28,4 +28,5 @@ def test_trigger_training_endpoint():
     # Check for the correct keys in the response
     assert "message" in response_data
     assert "task_id" in response_data # This is the correct key to check
+
     assert response_data["message"] == "Model training task has been triggered."
