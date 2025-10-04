@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import sys
 import os
+import mlflow
 
 # This allows the script to find and import from the parent directory
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -30,4 +31,5 @@ def trigger_training():
     It returns immediately with a task ID.
     """
     task = trigger_training_task.delay()
+
     return {"message": "Model training task has been triggered.", "task_id": task.id}
