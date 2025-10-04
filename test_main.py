@@ -21,9 +21,5 @@ def test_trigger_training_endpoint(mock_mlflow_main, mock_mlflow_analysis):
     assert response.status_code == 200
     response_data = response.json()
     assert "message" in response_data
-    assert "run_id" in response_data
-    assert "mse" in response_data
-    assert response_data["message"] == "Model training complete."
-    mock_mlflow_main.set_experiment.assert_called_once_with("Retail Spending Predictor")
-    mock_mlflow_main.log_metric.assert_called_once()
-    
+    assert "task_id" in response_data
+    assert response_data["message"].startswith("Model training task has been triggered")
