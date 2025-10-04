@@ -1,5 +1,3 @@
-# .github/workflows/main.yml
-
 name: MLOps Project CI Pipeline
 
 on:
@@ -10,12 +8,9 @@ jobs:
   test-application:
     runs-on: ubuntu-latest
 
-    # This 'services' block starts a Redis container before your steps run
     services:
-      # The name 'redis' makes it available on localhost:6379 inside the job
       redis:
         image: redis
-        # This healthcheck ensures Redis is ready before your tests start
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -35,4 +30,6 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run automated tests with pytest
+        env:
+          MLFLOW_TRACKING_URI: file:///tmp/mlruns
         run: python -m pytest
