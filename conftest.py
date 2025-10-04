@@ -1,3 +1,5 @@
+import mlflow
+mlflow.set_tracking_uri("file:///tmp/mlruns")
 import pytest
 from celery import current_app
 
