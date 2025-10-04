@@ -5,10 +5,9 @@ from unittest.mock import patch
 client = TestClient(app)
 
 def test_read_root():
-    """Tests the root endpoint '/'."""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Welcome!"}
+    assert response.json() == {"message": "Welcome to the Retail Analytics API. Go to /docs for endpoints."}
 
 # The @patch decorator replaces the real 'mlflow' object in your 'main.py'
 # with a fake "mock" object just for the duration of this test.
@@ -35,3 +34,4 @@ def test_trigger_training_endpoint(mock_mlflow):
     # You can also assert that the mock mlflow functions were called
     mock_mlflow.set_experiment.assert_called_once_with("Retail Spending Predictor")
     mock_mlflow.log_metric.assert_called_once()
+
