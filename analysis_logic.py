@@ -7,7 +7,7 @@ import mlflow
 import os
 
 # Define the absolute file path for the dataset
-FILEPATH = r"C:\Users\alesha.b.lv\Desktop\MLOps\mlops_project\customer_shopping_data.csv"
+FILEPATH = "customer_shopping_data.csv"
 
 def load_and_process_data():
     """Loads and preprocesses the customer shopping data."""
@@ -63,4 +63,5 @@ def train_spending_model(df):
         
         run_id = mlflow.active_run().info.run_id
         print(f"Training complete. Run ID: {run_id}, MSE: {mse}")
+
         return {"message": "Model training complete.", "run_id": run_id, "mse": mse}
