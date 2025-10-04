@@ -1,7 +1,7 @@
 import pandas as pd
 import datetime as dt
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 import mlflow
 import os
@@ -42,7 +42,7 @@ def calculate_rfm(df):
     return rfm
 
 def train_spending_model(df):
-    """Trains a simple model and logs it to MLflow."""
+    """Trains a Random Forest model and logs it to MLflow."""
     mlflow.set_tracking_uri("file:///tmp/mlruns")  # Always use local file store
     mlflow.set_experiment("Retail Spending Predictor")
 
@@ -52,12 +52,12 @@ def train_spending_model(df):
         y = model_data['total_price']
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        model = LinearRegression()
+        model = RandomForestRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
         preds = model.predict(X_test)
         mse = mean_squared_error(y_test, preds)
 
-        mlflow.log_param("model_type", "LinearRegression")
+        mlflow.log_param("model_type", "RandomForestRegressor")
         mlflow.log_metric("mse", mse)
         mlflow.sklearn.log_model(model, "spending-predictor-model")
         
