@@ -6,7 +6,7 @@ from sklearn.metrics import mean_squared_error
 import mlflow
 import os
 
-# Define the absolute file path for the dataset
+# Define the relative file path for the dataset
 FILEPATH = "customer_shopping_data.csv"
 
 def load_and_process_data():
@@ -43,7 +43,7 @@ def calculate_rfm(df):
 
 def train_spending_model(df):
     """Trains a simple model and logs it to MLflow."""
-    mlflow.set_tracking_uri("http://127.0.0.1:5000")
+    mlflow.set_tracking_uri("file:///tmp/mlruns")  # Always use local file store
     mlflow.set_experiment("Retail Spending Predictor")
 
     with mlflow.start_run():
